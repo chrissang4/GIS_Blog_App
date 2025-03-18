@@ -1,0 +1,100 @@
+{% extends 'base.html' %} {% load static %} {% block title %}List{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="hero">
+    <img src="{% static 'img/GISDAY.png' %}" alt="" />
+  </div>
+
+  <section class="container">
+    <ul class="list-unstyled">
+      {% for post in posts %}
+      <li class="text-muted py-2">
+        <i class="fa fa-calendar"></i>
+        {{ post.date_posted|date:"F j, Y" }}
+      </li>
+      <li>
+        <a
+          href="{% url 'blog:blog_detail' post.title %}"
+          class="fw-bold text-decoration-none py-2 text-dark fs-3"
+          >{{ post.title}}</a
+        >
+      </li>
+      <li>{{ post.description|truncatewords:30 }}</li>
+
+      <hr class="dotted" />
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="container">
+    <div class="pagination">
+      <span
+        class="step-links {% if not posts.has_previous %} disabled {% endif %}"
+      >
+        <a href="{% url 'blog:blog_list' %}?page=1">first</a>
+        {% if posts.has_previous %}
+        <a
+          href="{% url 'blog:blog_list' %}?page={{ posts.previous_page_number }}"
+          >previous</a
+        >
+        {% endif %}
+        <span class="current">
+          Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+        {% if posts.has_next %}
+        <a href="{% url 'blog:blog_list' %}?page={{ posts.next_page_number }}"
+          >next</a
+        >
+        {% endif %}
+
+        <a
+          href="{% url 'blog:blog_list' %}?page={{ posts.paginator.num_pages }}"
+          >last</a
+        >
+      </span>
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog List</title>
+</head>
+<body>
+    <h2>Blog List</h2>
+
+    {% for post in posts %}
+    <ul>
+        <li>
+            <a href="{% url 'blog_detail' post.title %}">{{ post.title }}</a>
+        </li>
+        <li>{{ post.date_posted|date:"F j, Y" }}</li>
+        <li>{{ post.description|truncatewords:40}}</li>
+    </ul> 
+    {% endfor %}
+</body>
+</html> -->
+<!-- <section>
+    <h2>Blog List</h2>
+
+    <ul>
+        {% for post in posts %}
+        <li>
+            <a href="{% url 'blog_detail' post.title %}">{{ post.title }}</a>
+        </li>
+        <li>{{ post.date_posted|date:"F j, Y" }}</li>
+        <li>{{ post.description|truncatewords:40}}</li>
+        {% endfor %}
+    </ul>
+
+
+
+
+
+</section> -->

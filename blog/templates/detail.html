@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% load static %} {% block title %} {{ post.title }}
+{% endblock %} {% block content %}
+
+<section>
+  <div class="container my-5">
+    <h2 class="text-center py-2">{{ post.title }}</h2>
+    {% if post.image %}
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid" style="max-width: 600px; height: auto; display: block; margin: auto;" />
+
+    <!-- <img src="{{ post.image.url }}" alt="{{ post.title }}" /> -->
+    {% endif %}
+    <p class="text-muted p-2">
+      <i class="fa fa-calendar"></i> {{ post.date_posted|date:"F j, Y" }}
+    </p>
+    <p class="p-3">{{ post.description }}</p>
+    <p class="pb-5">Author: {{ post.author }}</p>
+  </div>
+</section>
+
+{% endblock %}
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail_list</title>
+</head>
+<body>
+    <h2>{{post.title}}</h2>
+    <p>{{post.date_posted|date:"F j, Y"}}</p>
+    <p>{{post.description}}</p> 
+</body>
+</html> -->
+<!-- <section>
+    <h2>{{post.title}}</h2>
+    <p>{{date_posted|date:"F j, Y"}}</p>
+    <p>{{post.description}}</p>
+
+</section> -->
